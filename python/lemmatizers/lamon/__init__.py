@@ -1,0 +1,1 @@
+from .lamon import Lamon

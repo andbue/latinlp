@@ -1,0 +1,9 @@
+[submodule "external/LEMLAT3"]
+	path = external/LEMLAT3
+	url = https://github.com/andbue/LEMLAT3
+[submodule "external/wordsxml"]
+	path = external/wordsxml
+	url = https://github.com/andbue/wordsxml
+[submodule "external/morpheus"]
+	path = external/morpheus
+	url = https://github.com/andbue/morpheus
