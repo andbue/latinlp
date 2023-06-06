@@ -4,14 +4,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends build-essential && \
     apt-get install -y --no-install-recommends python3 python3-dev python3-pip python3-setuptools python3-wheel python3-lxml python3-distutils git wget
-#RUN apt-get install -y --no-install-recommends autoconf automake libtool gettext libicu-dev pkg-config bison flex
-#RUN    python3 -m pip --no-cache-dir install --upgrade pip && \
-#       python3 -m pip install cltk
-
-#WORKDIR /tmp
-#RUN wget https://apertium.projectjj.com/apt/install-nightly.sh
-#RUN bash install-nightly.sh
-#RUN apt-get install python3-hfst
 
 
 FROM base AS build_lemlat
@@ -32,7 +24,6 @@ RUN apt-get install -y --no-install-recommends flex libfl-dev
 COPY ./external/morpheus /tmp/morpheus
 WORKDIR /tmp/morpheus/src
 RUN make && make install && cd anal && make libmorpheus && cd ../../stemlib/Latin && PATH=$PATH:../../bin MORPHLIB=/tmp/morpheus/stemlib make
-# TODO: build stemlib
 WORKDIR /tmp/morpheus/src/anal
 RUN MORPHLIB=/tmp/morpheus/stemlib python3 test.py # env: stemlib?
 
@@ -98,7 +89,6 @@ RUN wget https://github.com/PonteIneptique/latin-lasla-models/releases/download/
     
 
 # 8. treetagger
-#WORKDIR
 RUN pip install --no-cache-dir treetaggerwrapper
 
 WORKDIR /tmp/treetagger
@@ -108,8 +98,6 @@ RUN wget https://www.cis.lmu.de/~schmid/tools/TreeTagger/data/tree-tagger-linux-
     wget https://www.cis.lmu.de/~schmid/tools/TreeTagger/data/latin.par.gz && \
     sh install-tagger.sh && \
     cp -r bin lib /tmp/python/lemmatizers/treetagger/
-
-
 
 
 # 9. whitaker copy libpyparse.so, *.LAT, *.GEN, *.SEC
